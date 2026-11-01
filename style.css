@@ -147,12 +147,13 @@ small {
 }
 .editor-layout {
   display: grid;
-  grid-template-columns: minmax(0, 800px) minmax(250px, 1fr);
+  grid-template-columns: minmax(0, 770px) minmax(250px, 1fr);
   gap: 16px;
   margin: 16px 0;
 }
 .map-scroll {
   overflow: auto;
+  width: max-content;
   max-width: 100%;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -371,7 +372,7 @@ a {
     height: 384px;
   }
   .editor-layout {
-    grid-template-columns: minmax(0, 550px) minmax(250px, 1fr);
+    grid-template-columns: minmax(0, 514px) minmax(250px, 1fr);
   }
 }
 @media (max-width: 800px) {
@@ -426,9 +427,6 @@ a {
 .editor-layout > section,
 .editor-layout > aside {
   min-width: 0;
-}
-.map-scroll {
-  width: 100%;
 }
 @media (max-width: 800px) {
   .editor-layout,
