@@ -983,7 +983,7 @@ function move(direction) {
               cells.push({ map: i, x, y });
       });
       if (cells.length)
-        teleport(cells[Math.floor(Math.random() * cells.length)]);
+        teleport(cells[Math.floor(Math.random() * cells.length)], true);
       say("どこへ飛ばされた……？");
       return;
     }
@@ -1003,15 +1003,21 @@ function move(direction) {
           '<h2>……うそでした</h2><div class="dialog-actions"><button id="fakeBack">もどされる</button></div>',
           true,
         );
-        $("#fakeBack").onclick = () => {
+        let returned = false;
+        const returnNow = () => {
+          if (returned || run !== r) return;
+          returned = true;
           closeModal();
           teleportStart();
+          say("……うそでした。最初に戻された。");
         };
+        $("#fakeBack").onclick = returnNow;
+        setTimeout(returnNow, 1200);
       }, 3000);
       return;
     }
     if (o.type === "stairs") {
-      teleport(o.to || entryFor(run.map));
+      teleport(o.to || entryFor(run.map), true);
       say("階段を進んだ。");
       return;
     }
@@ -1033,12 +1039,12 @@ function entryFor(map) {
         return { map, x, y };
   return { map, x: 0, y: 0 };
 }
-function teleport(to) {
+function teleport(to, recordEntry = false) {
   const p = to || run.data.start;
   run.map = p.map;
   run.x = p.x;
   run.y = p.y;
-  if (!run.entries[p.map]) run.entries[p.map] = clone(p);
+  if (recordEntry || !run.entries[p.map]) run.entries[p.map] = clone(p);
   hud();
 }
 function teleportStart() {
