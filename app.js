@@ -26,7 +26,8 @@ let game = freshGame(),
   strokeChanged = false;
 const sheet = new Image();
 sheet.src = "tilesheet.png";
-let noticeTimer;
+let noticeTimer,
+  saveStatus = "自動保存済み";
 function notice(s) {
   $("#notice").textContent = s;
   clearTimeout(noticeTimer);
@@ -68,10 +69,12 @@ function save() {
       "kusoge-maker-draft",
       JSON.stringify({ game, certified }),
     );
-    $("#saveState")?.replaceChildren(document.createTextNode("自動保存済み"));
+    saveStatus = "自動保存済み";
+    $("#saveState")?.replaceChildren(document.createTextNode(saveStatus));
   } catch {
     notice("自動保存できません。JSONを書き出して保管してください。");
-    $("#saveState")?.replaceChildren(document.createTextNode("保存失敗"));
+    saveStatus = "保存失敗";
+    $("#saveState")?.replaceChildren(document.createTextNode(saveStatus));
   }
 }
 function remember() {
@@ -191,7 +194,7 @@ function editor() {
   run = null;
   screen = "editor";
   closeModal();
-  root.innerHTML = `<div class="row"><h2>つくる</h2><span class="badge" id="cert"></span><small id="saveState">自動保存済み</small></div><div class="row toolbar"><label>題名<input id="titleInput" maxlength="80" value="${esc(game.title)}"></label><label>作者<input id="authorInput" maxlength="40" value="${esc(game.author)}"></label><label>マップ<select id="mapSelect">${game.maps.map((m, i) => `<option value="${i}" ${i === mapIndex ? "selected" : ""}>${i + 1}：${esc(m.name)}</option>`).join("")}</select></label><button id="addMap" ${game.maps.length >= 5 ? "disabled" : ""}>＋追加</button><button id="deleteMap" ${game.maps.length <= 1 ? "disabled" : ""}>削除</button><button id="renameMap">名前</button></div><div class="editor-layout"><section><div class="map-scroll"><canvas class="editing" id="map" width="256" height="192" aria-label="16列12行のマップ。部品を選んでタップして配置"></canvas></div><p class="help">タップ／ドラッグで配置。「設定する」でマスを選ぶと部品の詳細。<br>細い画面はマップを横にスクロールできます。座標は左上が (0, 0)。</p><div class="row"><button id="test" class="primary">テストプレイ</button><button id="settings">設定</button><button id="score">クソゲー度</button><button id="share">共有</button><button id="export">書き出し</button><button id="read">読みこみ</button></div></section><aside class="panel"><div class="row tabs">${["地面", "物・キャラ", "クソゲー部品"].map((n, i) => `<button data-tab="${i}" class="${i === tab ? "selected" : ""}">${n}</button>`).join("")}</div><div id="palette" class="palette"></div><h3>道具</h3><div class="row">${[
+  root.innerHTML = `<div class="row"><h2>つくる</h2><span class="badge" id="cert"></span><small id="saveState">${esc(saveStatus)}</small></div><div class="row toolbar"><label>題名<input id="titleInput" maxlength="80" value="${esc(game.title)}"></label><label>作者<input id="authorInput" maxlength="40" value="${esc(game.author)}"></label><label>マップ<select id="mapSelect">${game.maps.map((m, i) => `<option value="${i}" ${i === mapIndex ? "selected" : ""}>${i + 1}：${esc(m.name)}</option>`).join("")}</select></label><button id="addMap" ${game.maps.length >= 5 ? "disabled" : ""}>＋追加</button><button id="deleteMap" ${game.maps.length <= 1 ? "disabled" : ""}>削除</button><button id="renameMap">名前</button></div><div class="editor-layout"><section><div class="map-scroll"><canvas class="editing" id="map" width="256" height="192" aria-label="16列12行のマップ。部品を選んでタップして配置"></canvas></div><p class="help">タップ／ドラッグで配置。「設定する」でマスを選ぶと部品の詳細。<br>細い画面はマップを横にスクロールできます。座標は左上が (0, 0)。</p><div class="row"><button id="test" class="primary">テストプレイ</button><button id="settings">設定</button><button id="score">クソゲー度</button><button id="share">共有</button><button id="export">書き出し</button><button id="read">読みこみ</button></div></section><aside class="panel"><div class="row tabs">${["地面", "物・キャラ", "クソゲー部品"].map((n, i) => `<button data-tab="${i}" class="${i === tab ? "selected" : ""}">${n}</button>`).join("")}</div><div id="palette" class="palette"></div><h3>道具</h3><div class="row">${[
     ["paint", "置く"],
     ["inspect", "設定する"],
     ["erase", "消しゴム"],
@@ -208,7 +211,7 @@ function editor() {
     ["titleInput", "title"],
     ["authorInput", "author"],
   ])
-    $("#" + id).onchange = (e) => {
+    $("#" + id).oninput = (e) => {
       remember();
       game[key] = e.target.value;
       changed();

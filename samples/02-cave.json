@@ -1,0 +1,81 @@
+{
+  "format": "kusoge-maker/1",
+  "title": "やさしい洞くつ",
+  "author": "Claude × ChatGPT",
+  "description": "宝箱もおじいさんも、あなたを歓迎。",
+  "hero": {
+    "hp": 60,
+    "atk": 12
+  },
+  "openingMessage": "出口は右上。寄り道は自己責任です。",
+  "kuso": {
+    "encounterRate": 0,
+    "textSpeed": "slow",
+    "vision": "near",
+    "walkSpeed": "normal",
+    "bgmSpeedUp": false,
+    "reallyConfirm": false,
+    "respawn": "start"
+  },
+  "start": {
+    "map": 0,
+    "x": 2,
+    "y": 10
+  },
+  "maps": [
+    {
+      "name": "やさしい洞くつ",
+      "ground": [
+        "################",
+        "#ffffffffffffff#",
+        "#fffff####fffff#",
+        "#fffff####fffff#",
+        "#fffff####fffff#",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "################"
+      ],
+      "legend": {
+        ".": "grass",
+        "d": "dirt",
+        "f": "floor",
+        "#": "wall",
+        "~": "water",
+        "w": "water_2",
+        "T": "tree",
+        "D": "door",
+        "S": "stairs"
+      },
+      "objects": [
+        {
+          "type": "mimic",
+          "x": 5,
+          "y": 8,
+          "hp": 24,
+          "atk": 8
+        },
+        {
+          "type": "warp",
+          "x": 8,
+          "y": 7
+        },
+        {
+          "type": "oldman",
+          "x": 10,
+          "y": 4,
+          "lines": ["出口は、右上じゃ。"]
+        },
+        {
+          "type": "goal",
+          "x": 13,
+          "y": 2
+        }
+      ]
+    }
+  ],
+  "authorCleared": true
+}

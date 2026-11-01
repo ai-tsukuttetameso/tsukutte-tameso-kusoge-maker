@@ -1,0 +1,118 @@
+{
+  "format": "kusoge-maker/1",
+  "title": "ぜったいクリアさせない城",
+  "author": "Claude × ChatGPT",
+  "description": "全部入り。でも、右端に希望がある。",
+  "hero": {
+    "hp": 999,
+    "atk": 50
+  },
+  "openingMessage": "右端を上へ。寄り道したくなっても、右端を上へ。",
+  "kuso": {
+    "encounterRate": 8,
+    "textSpeed": "hell",
+    "vision": "near",
+    "walkSpeed": "slow",
+    "bgmSpeedUp": true,
+    "reallyConfirm": true,
+    "respawn": "entrance"
+  },
+  "start": {
+    "map": 0,
+    "x": 2,
+    "y": 10
+  },
+  "maps": [
+    {
+      "name": "いやがらせの城",
+      "ground": [
+        "################",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "#f#####f####fff#",
+        "#ffffffffffffff#",
+        "#ff~~~fffffffff#",
+        "#ff~~~fffffffff#",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "#ffffffffffffff#",
+        "################"
+      ],
+      "legend": {
+        ".": "grass",
+        "d": "dirt",
+        "f": "floor",
+        "#": "wall",
+        "~": "water",
+        "w": "water_2",
+        "T": "tree",
+        "D": "door",
+        "S": "stairs"
+      },
+      "objects": [
+        {
+          "type": "invisible_wall",
+          "x": 3,
+          "y": 8
+        },
+        {
+          "type": "pit",
+          "x": 4,
+          "y": 8
+        },
+        {
+          "type": "mimic",
+          "x": 5,
+          "y": 8,
+          "hp": 30,
+          "atk": 8
+        },
+        {
+          "type": "warp",
+          "x": 6,
+          "y": 8
+        },
+        {
+          "type": "reverse",
+          "x": 7,
+          "y": 8
+        },
+        {
+          "type": "loop",
+          "x": 8,
+          "y": 8
+        },
+        {
+          "type": "fake_goal",
+          "x": 9,
+          "y": 8
+        },
+        {
+          "type": "oldman",
+          "x": 10,
+          "y": 8,
+          "lines": ["急ぐでない。"]
+        },
+        {
+          "type": "boss",
+          "x": 11,
+          "y": 8,
+          "allowLose": true
+        },
+        {
+          "type": "goal",
+          "x": 14,
+          "y": 1
+        },
+        {
+          "type": "chest",
+          "x": 2,
+          "y": 9,
+          "item": "key"
+        }
+      ]
+    }
+  ],
+  "authorCleared": true
+}

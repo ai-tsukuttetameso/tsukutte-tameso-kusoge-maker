@@ -1,0 +1,80 @@
+{
+  "format": "kusoge-maker/1",
+  "title": "はじめての村",
+  "author": "Claude × ChatGPT",
+  "description": "まっすぐ進むだけ。たぶん。",
+  "hero": {
+    "hp": 20,
+    "atk": 5
+  },
+  "openingMessage": "ゴールは右上。見えない何かは、よけて進もう。",
+  "kuso": {
+    "encounterRate": 0,
+    "textSpeed": "normal",
+    "vision": "all",
+    "walkSpeed": "normal",
+    "bgmSpeedUp": false,
+    "reallyConfirm": false,
+    "respawn": "start"
+  },
+  "start": {
+    "map": 0,
+    "x": 2,
+    "y": 10
+  },
+  "maps": [
+    {
+      "name": "はじまりの村",
+      "ground": [
+        "TTTTTTTTTTTTTTTT",
+        "T..............T",
+        "T..TT........d.T",
+        "T......~~~.T.d.T",
+        "T......~~~...d.T",
+        "T....T.~~~...d.T",
+        "T............d.T",
+        "T.dddddddddddd.T",
+        "T.d............T",
+        "T.d........T...T",
+        "T.d............T",
+        "TTTTTTTTTTTTTTTT"
+      ],
+      "legend": {
+        ".": "grass",
+        "d": "dirt",
+        "f": "floor",
+        "#": "wall",
+        "~": "water",
+        "w": "water_2",
+        "T": "tree",
+        "D": "door",
+        "S": "stairs"
+      },
+      "objects": [
+        {
+          "type": "invisible_wall",
+          "x": 6,
+          "y": 10
+        },
+        {
+          "type": "villager",
+          "x": 4,
+          "y": 9,
+          "lines": ["こんにちは！", "右上の旗をめざそう。"]
+        },
+        {
+          "type": "chest",
+          "x": 3,
+          "y": 8,
+          "item": "herb"
+        },
+        {
+          "type": "goal",
+          "x": 13,
+          "y": 2
+        }
+      ]
+    }
+  ],
+  "authorCleared": true
+}
