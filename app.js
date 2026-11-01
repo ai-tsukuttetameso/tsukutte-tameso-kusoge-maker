@@ -770,9 +770,12 @@ function startPlay(g, test = false, carry = null) {
   closeModal();
   gameToken++;
   screen = "play";
-  const data = clone(g),
+  // Keep the starting world separate from chests, doors and enemies mutated in play.
+  const initialData = clone(g),
+    data = clone(initialData),
     start = carry?.pos || data.start;
   run = {
+    initialData,
     data,
     test,
     map: start.map,
@@ -797,7 +800,7 @@ function startPlay(g, test = false, carry = null) {
   root.innerHTML = `<section class="play-layout"><div class="row"><h2>${esc(data.title)}</h2><button id="exitPlay">${test ? "つくる画面にもどる" : "タイトルへ"}</button><button id="restart">さいしょから</button></div><div id="hud" class="hud"></div><div class="map-scroll"><canvas id="map" width="256" height="192" aria-label="ゲームマップ"></canvas></div><p id="gameMsg" class="game-msg" role="status"></p><div class="controls"><div class="dpad"><button data-dir="up" aria-label="上へ">↑</button><button data-dir="left" aria-label="左へ">←</button><button data-dir="down" aria-label="下へ">↓</button><button data-dir="right" aria-label="右へ">→</button></div><button class="inspect primary" id="inspect">しらべる</button></div><p class="help">矢印キー／WASD：移動 ｜ Enter／スペース：前のマスをしらべる<br>十字ボタンはタップで1歩。宝箱・扉・村人は、となりに立ってしらべよう。</p></section>`;
   $("#exitPlay").onclick = test ? editor : home;
   $("#restart").onclick = () =>
-    confirmBox("最初からやり直しますか？", () => startPlay(g, test));
+    confirmBox("最初からやり直しますか？", () => startPlay(initialData, test));
   $("#inspect").onclick = inspect;
   root
     .querySelectorAll("[data-dir]")
@@ -1214,19 +1217,17 @@ function gameOver() {
       say("入口から、もう一度。");
       hud();
     } else
-      startPlay(r.test ? game : r.data, r.test, {
+      startPlay(r.initialData, r.test, {
         deaths: r.deaths,
         traps: r.traps,
         began: r.began,
-        pos: r.data.start,
       });
   };
   $("#fromStart").onclick = () =>
-    startPlay(r.test ? game : r.data, r.test, {
+    startPlay(r.initialData, r.test, {
       deaths: r.deaths,
       traps: r.traps,
       began: r.began,
-      pos: r.data.start,
     });
   if ($("#backEdit")) $("#backEdit").onclick = editor;
   if ($("#backTitle")) $("#backTitle").onclick = home;
