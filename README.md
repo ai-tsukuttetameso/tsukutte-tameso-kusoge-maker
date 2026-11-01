@@ -7,7 +7,7 @@
 
 ## 起動
 
-`index.html` が入口です。HTML/CSS/JavaScript・同梱PNGのみで動き、外部通信・外部ライブラリ・ビルド・バックエンドは不要です。GitHub Pagesにはこのフォルダの内容を配置できます。まだ公開していません。
+`index.html` が入口です。HTML/CSS/JavaScript・同梱PNGのみで動き、外部通信・外部ライブラリ・ビルド・バックエンドは不要です。公開ページ：https://ai-tsukuttetameso.github.io/tsukutte-tameso-kusoge-maker/
 
 手元の確認用には、appで `python3 -m http.server 8140` を実行し、`http://localhost:8140/` を開きます。このローカルサーバーは開発用です。アプリにサーバー機能はありません。
 
