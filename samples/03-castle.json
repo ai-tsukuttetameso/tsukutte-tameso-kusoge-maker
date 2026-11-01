@@ -4,10 +4,10 @@
   "author": "Claude × ChatGPT",
   "description": "全部入り。でも、右端に希望がある。",
   "hero": {
-    "hp": 999,
-    "atk": 50
+    "hp": 30,
+    "atk": 8
   },
-  "openingMessage": "右端を上へ。寄り道したくなっても、右端を上へ。",
+  "openingMessage": "右端を上へ。旗をめざそう。",
   "kuso": {
     "encounterRate": 8,
     "textSpeed": "hell",
@@ -27,16 +27,16 @@
       "name": "いやがらせの城",
       "ground": [
         "################",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
-        "#f#####f####fff#",
-        "#ffffffffffffff#",
-        "#ff~~~fffffffff#",
-        "#ff~~~fffffffff#",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
+        "#fffffffffffffd#",
+        "#fffffffffffffd#",
+        "#f#####f####ffd#",
+        "#fffffffffffffd#",
+        "#ff~~~ffffffffd#",
+        "#ff~~~ffffffffd#",
+        "#fffffffffffffd#",
+        "#fffffffffffffd#",
+        "#fffffffffffffd#",
+        "#fddddddddddddd#",
         "################"
       ],
       "legend": {
@@ -58,13 +58,13 @@
         },
         {
           "type": "pit",
-          "x": 4,
-          "y": 8
+          "x": 8,
+          "y": 10
         },
         {
           "type": "mimic",
           "x": 5,
-          "y": 8,
+          "y": 10,
           "hp": 30,
           "atk": 8
         },
@@ -85,19 +85,21 @@
         },
         {
           "type": "fake_goal",
-          "x": 9,
-          "y": 8
+          "x": 14,
+          "y": 5
         },
         {
           "type": "oldman",
           "x": 10,
           "y": 8,
-          "lines": ["急ぐでない。"]
+          "lines": [
+            "急ぐでない。"
+          ]
         },
         {
           "type": "boss",
-          "x": 11,
-          "y": 8,
+          "x": 14,
+          "y": 3,
           "allowLose": true
         },
         {

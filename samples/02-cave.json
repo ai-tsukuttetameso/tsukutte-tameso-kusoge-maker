@@ -7,7 +7,7 @@
     "hp": 60,
     "atk": 12
   },
-  "openingMessage": "出口は右上。寄り道は自己責任です。",
+  "openingMessage": "出口は右上。土の道をたどろう。",
   "kuso": {
     "encounterRate": 0,
     "textSpeed": "slow",
@@ -28,15 +28,15 @@
       "ground": [
         "################",
         "#ffffffffffffff#",
-        "#fffff####fffff#",
-        "#fffff####fffff#",
-        "#fffff####fffff#",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
-        "#ffffffffffffff#",
+        "#fffff####fffdf#",
+        "#fffff####fffdf#",
+        "#fffff####fffdf#",
+        "#ffffffffffffdf#",
+        "#ffffffffffffdf#",
+        "#ffffffffffffdf#",
+        "#ffffffffffffdf#",
+        "#ffffffffffffdf#",
+        "#fddddddddddddf#",
         "################"
       ],
       "legend": {
@@ -54,9 +54,19 @@
         {
           "type": "mimic",
           "x": 5,
-          "y": 8,
+          "y": 10,
           "hp": 24,
           "atk": 8
+        },
+        {
+          "type": "pit",
+          "x": 9,
+          "y": 10
+        },
+        {
+          "type": "reverse",
+          "x": 13,
+          "y": 7
         },
         {
           "type": "warp",
@@ -67,7 +77,9 @@
           "type": "oldman",
           "x": 10,
           "y": 4,
-          "lines": ["出口は、右上じゃ。"]
+          "lines": [
+            "出口は、右上じゃ。"
+          ]
         },
         {
           "type": "goal",

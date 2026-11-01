@@ -139,7 +139,7 @@ function makeSamples() {
   a.openingMessage = "ゴールは右上。見えない何かは、よけて進もう。";
   a.maps[0].name = "はじまりの村";
   a.maps[0].objects = [
-    { type: "invisible_wall", x: 6, y: 10 },
+    { type: "invisible_wall", x: 6, y: 7 },
     {
       type: "villager",
       x: 4,
@@ -155,10 +155,12 @@ function makeSamples() {
   b.description = "宝箱もおじいさんも、あなたを歓迎。";
   b.hero.hp = 60;
   b.hero.atk = 12;
-  b.openingMessage = "出口は右上。寄り道は自己責任です。";
+  b.openingMessage = "出口は右上。土の道をたどろう。";
   b.maps = [blankMap("やさしい洞くつ", "floor")];
   b.maps[0].objects = [
-    { type: "mimic", x: 5, y: 8, hp: 24, atk: 8 },
+    { type: "mimic", x: 5, y: 10, hp: 24, atk: 8 },
+    { type: "pit", x: 9, y: 10 },
+    { type: "reverse", x: 13, y: 7 },
     { type: "warp", x: 8, y: 7 },
     { type: "oldman", x: 10, y: 4, lines: ["出口は、右上じゃ。"] },
     { type: "goal", x: 13, y: 2 },
@@ -169,20 +171,20 @@ function makeSamples() {
   c.title = "ぜったいクリアさせない城";
   c.author = a.author;
   c.description = "全部入り。でも、右端に希望がある。";
-  c.hero.hp = 999;
-  c.hero.atk = 50;
-  c.openingMessage = "右端を上へ。寄り道したくなっても、右端を上へ。";
+  c.hero.hp = 30;
+  c.hero.atk = 8;
+  c.openingMessage = "右端を上へ。旗をめざそう。";
   c.maps = [blankMap("いやがらせの城", "floor")];
   c.maps[0].objects = [
     { type: "invisible_wall", x: 3, y: 8 },
-    { type: "pit", x: 4, y: 8 },
-    { type: "mimic", x: 5, y: 8, hp: 30, atk: 8 },
+    { type: "pit", x: 8, y: 10 },
+    { type: "mimic", x: 5, y: 10, hp: 30, atk: 8 },
     { type: "warp", x: 6, y: 8 },
     { type: "reverse", x: 7, y: 8 },
     { type: "loop", x: 8, y: 8 },
-    { type: "fake_goal", x: 9, y: 8 },
+    { type: "fake_goal", x: 14, y: 5 },
     { type: "oldman", x: 10, y: 8, lines: ["急ぐでない。"] },
-    { type: "boss", x: 11, y: 8, allowLose: true },
+    { type: "boss", x: 14, y: 3, allowLose: true },
     { type: "goal", x: 14, y: 1 },
     { type: "chest", x: 2, y: 9, item: "key" },
   ];
@@ -195,7 +197,7 @@ function makeSamples() {
     reallyConfirm: true,
     respawn: "entrance",
   };
-  // Scenery keeps the verified routes open while making each sample recognizable.
+  // Mark a tempting route through the traps; every obstacle has a way around it.
   const paint = (g, x, y, tile) => {
     const m = g.maps[0],
       row = m.ground[y];
@@ -209,6 +211,10 @@ function makeSamples() {
   for (let y = 7; y <= 10; y++) paint(a, 2, y, "dirt");
   for (let x = 2; x <= 13; x++) paint(a, x, 7, "dirt");
   for (let y = 2; y <= 7; y++) paint(a, 13, y, "dirt");
+  for (const [g, right, top] of [[b, 13, 2], [c, 14, 1]]) {
+    for (let x = 2; x <= right; x++) paint(g, x, 10, "dirt");
+    for (let y = top; y <= 10; y++) paint(g, right, y, "dirt");
+  }
   for (let y = 3; y <= 5; y++)
     for (let x = 7; x <= 9; x++) paint(a, x, y, "water");
   for (const [x, y] of [
