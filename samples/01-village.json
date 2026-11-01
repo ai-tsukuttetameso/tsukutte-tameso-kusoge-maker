@@ -32,9 +32,9 @@
         "T......~~~.T.d.T",
         "T......~~~...d.T",
         "T....T.~~~...d.T",
-        "T............d.T",
-        "T.dddddddddddd.T",
-        "T.d............T",
+        "Tddddddddddddd.T",
+        "TdTTTTdTTTTTTTTT",
+        "Tdddddd........T",
         "T.d........T...T",
         "T.d............T",
         "TTTTTTTTTTTTTTTT"
@@ -68,7 +68,7 @@
         {
           "type": "chest",
           "x": 3,
-          "y": 8,
+          "y": 9,
           "item": "herb"
         },
         {

@@ -27,16 +27,16 @@
       "name": "いやがらせの城",
       "ground": [
         "################",
-        "#fffffffffffffd#",
-        "#fffffffffffffd#",
-        "#f#####f####ffd#",
-        "#fffffffffffffd#",
-        "#ff~~~ffffffffd#",
-        "#ff~~~ffffffffd#",
-        "#fffffffffffffd#",
-        "#fffffffffffffd#",
-        "#fffffffffffffd#",
-        "#fddddddddddddd#",
+        "##############d#",
+        "#############fd#",
+        "#############fd#",
+        "############ff##",
+        "############f#d#",
+        "############ffd#",
+        "##############d#",
+        "######f#f#f###d#",
+        "##f#ffffffff##d#",
+        "##ddddddddddddd#",
         "################"
       ],
       "legend": {
@@ -53,8 +53,8 @@
       "objects": [
         {
           "type": "invisible_wall",
-          "x": 3,
-          "y": 8
+          "x": 10,
+          "y": 10
         },
         {
           "type": "pit",
@@ -75,8 +75,8 @@
         },
         {
           "type": "reverse",
-          "x": 7,
-          "y": 8
+          "x": 14,
+          "y": 7
         },
         {
           "type": "loop",

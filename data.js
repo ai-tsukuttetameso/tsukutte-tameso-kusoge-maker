@@ -146,7 +146,7 @@ function makeSamples() {
       y: 9,
       lines: ["こんにちは！", "右上の旗をめざそう。"],
     },
-    { type: "chest", x: 3, y: 8, item: "herb" },
+    { type: "chest", x: 3, y: 9, item: "herb" },
     { type: "goal", x: 13, y: 2 },
   ];
   const b = freshGame();
@@ -176,11 +176,11 @@ function makeSamples() {
   c.openingMessage = "右端を上へ。旗をめざそう。";
   c.maps = [blankMap("いやがらせの城", "floor")];
   c.maps[0].objects = [
-    { type: "invisible_wall", x: 3, y: 8 },
+    { type: "invisible_wall", x: 10, y: 10 },
     { type: "pit", x: 8, y: 10 },
     { type: "mimic", x: 5, y: 10, hp: 30, atk: 8 },
     { type: "warp", x: 6, y: 8 },
-    { type: "reverse", x: 7, y: 8 },
+    { type: "reverse", x: 14, y: 7 },
     { type: "loop", x: 8, y: 8 },
     { type: "fake_goal", x: 14, y: 5 },
     { type: "oldman", x: 10, y: 8, lines: ["急ぐでない。"] },
@@ -197,39 +197,49 @@ function makeSamples() {
     reallyConfirm: true,
     respawn: "entrance",
   };
-  // Mark a tempting route through the traps; every obstacle has a way around it.
+  // Visible shortcuts meet hidden traps; longer bypasses always remain open.
   const paint = (g, x, y, tile) => {
-    const m = g.maps[0],
-      row = m.ground[y];
+    const m = g.maps[0], row = m.ground[y];
     m.ground[y] = row.slice(0, x) + CHARS[tile] + row.slice(x + 1);
   };
-  for (const g of [a, b, c])
-    for (let y = 0; y < 12; y++)
-      for (let x = 0; x < 16; x++)
-        if (x === 0 || x === 15 || y === 0 || y === 11)
-          paint(g, x, y, g === a ? "tree" : "wall");
-  for (let y = 7; y <= 10; y++) paint(a, 2, y, "dirt");
-  for (let x = 2; x <= 13; x++) paint(a, x, 7, "dirt");
-  for (let y = 2; y <= 7; y++) paint(a, 13, y, "dirt");
-  for (const [g, right, top] of [[b, 13, 2], [c, 14, 1]]) {
-    for (let x = 2; x <= right; x++) paint(g, x, 10, "dirt");
-    for (let y = top; y <= 10; y++) paint(g, right, y, "dirt");
-  }
-  for (let y = 3; y <= 5; y++)
-    for (let x = 7; x <= 9; x++) paint(a, x, y, "water");
-  for (const [x, y] of [
-    [3, 2],
-    [4, 2],
-    [11, 3],
-    [5, 5],
-    [11, 9],
-  ])
+  const line = (g, x1, y1, x2, y2, tile) => {
+    for (let y = y1; y <= y2; y++)
+      for (let x = x1; x <= x2; x++) paint(g, x, y, tile);
+  };
+  for (let y = 0; y < 12; y++)
+    for (let x = 0; x < 16; x++)
+      if (x === 0 || x === 15 || y === 0 || y === 11)
+        paint(a, x, y, "tree");
+  // The near opening is blocked invisibly; the far opening at x=1 is safe.
+  line(a, 1, 7, 14, 7, "tree");
+  paint(a, 1, 7, "dirt");
+  paint(a, 6, 7, "dirt");
+  line(a, 2, 8, 2, 10, "dirt");
+  line(a, 1, 8, 6, 8, "dirt");
+  line(a, 1, 6, 13, 6, "dirt");
+  line(a, 13, 2, 13, 6, "dirt");
+  line(a, 7, 3, 9, 5, "water");
+  for (const [x, y] of [[3, 2], [4, 2], [11, 3], [5, 5], [11, 9]])
     paint(a, x, y, "tree");
-  for (let y = 2; y <= 4; y++)
-    for (let x = 6; x <= 9; x++) paint(b, x, y, "wall");
-  for (let x = 2; x <= 11; x++) if (x !== 7) paint(c, x, 3, "wall");
-  for (let y = 5; y <= 6; y++)
-    for (let x = 3; x <= 5; x++) paint(c, x, y, "water");
+
+  // Narrow main roads, with small stone detours around blocking/reset traps.
+  for (const [g, right, top] of [[b, 13, 2], [c, 14, 1]]) {
+    g.maps[0].ground = Array(12).fill("#".repeat(16));
+    line(g, 2, 10, right, 10, "dirt");
+    line(g, right, top, right, 10, "dirt");
+    line(g, 4, 9, 6, 9, "floor"); // mimic bypass
+  }
+  line(b, 8, 9, 10, 9, "floor"); // pit bypass
+  line(b, 10, 4, 10, 9, "floor"); // old man's side passage
+  line(b, 8, 7, 10, 7, "floor"); // optional warp, no shortcut to the flag
+
+  line(c, 7, 9, 11, 9, "floor"); // pit and invisible-wall bypasses
+  paint(c, 2, 9, "floor"); // key chest
+  for (const x of [6, 8, 10]) paint(c, x, 8, "floor"); // optional traps
+  line(c, 13, 2, 13, 6, "floor"); // fake flag and black-knight bypass
+  paint(c, 14, 4, "wall"); // fake flag is a dead end, not the route to the real flag
+  paint(c, 13, 5, "wall");
+  line(c, 12, 4, 12, 6, "floor");
   return [a, b, c];
 }
 const SAMPLES = makeSamples();
